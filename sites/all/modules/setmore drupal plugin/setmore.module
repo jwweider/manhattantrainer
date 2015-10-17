@@ -1,0 +1,76 @@
+<?php
+/**
+* Refferece - http://fourkitchens.com/blog/2012/07/18/building-custom-blocks-drupal-7
+* Implements hook_block_info().
+*/
+function setmore_block_info() {
+  $blocks = array();
+  $blocks['SetMore'] = array(
+    'info' => t('SetMore Appointments'),
+  );
+  return $blocks;
+}
+
+
+/**
+* Implements hook_block_view().
+*/
+function setmore_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'SetMore':
+      $block['subject'] = '';
+      $block['content'] = _SETMORE_MODULE_BLOCK_CONTENT();
+      break;
+  }
+  return $block;
+}
+
+/**
+*	To generate Block Content
+*/
+function _SETMORE_MODULE_BLOCK_CONTENT() {
+  $script	=	t('<script type="text/javascript" src="http://setmore.com/js/setmoreFancyBox.js"></script>
+					<div class="book-appt-setmore" 
+						onclick="javascript:setmorePopup(\''.variable_get( 'setmore_key', '').'\');" 
+						 >Book Now</div>');
+ return $script;
+}
+
+/**
+* Implements hook_block_configure()
+*/
+function setmore_block_configure($delta='') {
+  $form = array();
+ $setmore_key	=	variable_get('setmore_key', '');
+ if( $setmore_key == "" )
+ {
+ 	$setmore_key	=	t("37a6560e-88e8-495a-bd56-49a3854b6d3c");
+ }
+ 
+  switch($delta) {
+    case 'SetMore' :
+      // Text field form element
+      $form['text_body'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Enter your SetMore key here'),
+        '#default_value' => $setmore_key,
+        '#size' => 60,
+        '#description' => t(""),
+      );
+      break;
+  }
+  return $form;
+}
+
+/**
+* Implements hook_block_save().
+*/
+function setmore_block_save($delta = '', $edit = array()) {
+  switch($delta) {
+    case 'SetMore' :
+      // Saving the setmore key    
+      variable_set('setmore_key', $edit['text_body']);
+      break;
+  }
+}

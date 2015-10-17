@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root [
+<!ENTITY nbsp "&#160;">
+]>
+<html xmlns:frx="urn:FrxReports">
+<head>
+<title>Cholesterol Level</title>
+<frx:category>cholesterol</frx:category>
+<frx:options/>
+<frx:parameters>
+</frx:parameters>
+<frx:docgen>
+</frx:docgen>
+<frx:fields>
+</frx:fields>
+<frx:menu/>
+<frx:cache/>
+<style/>
+</head>
+<body>
+<div class="FrxSVGGraph" frx:block="userinfotable/cholesterol_level">
+  <svg frx:renderer="FrxSVGGraph" frx:series_1="{date}" frx:series_2="{element_value}" frx:type="LineGraph"/>
+    <table>
+      <thead>
+        <tr>
+          <th>date</th>
+          <th>element_value</th></tr></thead>
+      <tbody>
+        <tr frx:foreach="*">
+          <td>{date}</td>
+          <td>{element_value}</td></tr></tbody></table></div></body>
+</html>
